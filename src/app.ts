@@ -1,21 +1,12 @@
-const express = require("express");
-const app = express();
-const port = 5000;
+import express, { Application, Request, Response } from 'express'
+import cors from 'cors'
+const app: Application = express()
 
-const mongoose = require("mongoose");
+app.use(express.json())
+app.use(cors())
 
-main().catch((err) => console.log(err));
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!')
+})
 
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/test");
-
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
-}
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+export default app
